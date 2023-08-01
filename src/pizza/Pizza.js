@@ -1,6 +1,5 @@
 import "./Pizza.css";
-import "./Data.js";
-import React from "react";
+import pizzaData from "./PizzaData.json";
 
 function Header() {
   return (
@@ -10,16 +9,16 @@ function Header() {
   );
 }
 
-function Pizza(pizza) {
+function Pizza(props) {
   return (
-    <div className="pizza">
-      <img src={pizza.photoName} alt={pizza.name}></img>
+    <li className="pizza">
+      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name}></img>
       <div>
-        <h3>{pizza.name}</h3>
-        <p>{pizza.ingredient}</p>
-        <span>{pizza.price}</span>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredients}</p>
+        <span>{props.pizzaObj.price}</span>
       </div>
-    </div>
+    </li>
   );
 }
 
@@ -27,18 +26,11 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      <Pizza
-        name="Pizza Spinaci"
-        ingredient="Tomato, mozarella, ham, aragula, and burrata cheese"
-        photoName="pizzas/spinaci.jpg"
-        price={10}
-      />
-      <Pizza
-        name="Pizza Salamino"
-        ingredient="Tomato, mozarella, ham, aragula, and burrata cheese"
-        photoName="pizzas/prosciutto.jpg"
-        price={18}
-      />
+      <ul className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza pizzaObj={pizza} key={pizza.name} />
+        ))}
+      </ul>
     </main>
   );
 }
